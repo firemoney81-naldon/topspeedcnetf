@@ -1,23 +1,309 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <style>
+    /* Reset and base styles */
+    body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.8; margin: 0; padding: 0; color: #333; background-color: #f7f9fc; }
+    header, section, footer { padding: 20px; max-width: 1000px; margin: auto; }
+    header { background-color: #e3f2fd; text-align: center; padding: 60px 20px; position: relative; overflow: hidden; }
+
+    /* CTA Button Styles */
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 35px;
+      background-color: #007bff; /* Soft Blue */
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 25px;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+      transition: background 0.3s ease, transform 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    .cta-btn:hover { background-color: #0056b3; transform: scale(1.05); }
+    @keyframes pulse { 0% { box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); } 50% { box-shadow: 0 8px 20px rgba(0, 123, 255, 0.6); } 100% { box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3); } }
+
+    /* Typography and Hierarchy */
+    h1 { font-size: 32px; color: #007bff; font-weight: 800; line-height: 1.4; margin-bottom: 15px; }
+    h2 { font-size: 28px; color: #007bff; border-bottom: 3px solid #007bff; padding-bottom: 10px; margin-top: 40px; }
+    h3 { font-size: 22px; color: #0056b3; margin-top: 30px; }
+
+    /* Section Styles */
+    section { background-color: #ffffff; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); padding: 30px; }
+    .content-container { display: flex; flex-direction: column; gap: 20px; }
+    .image-container { text-align: center; margin-bottom: 20px; }
+    .image-container img { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+
+    /* List and Blockquote Styles */
+    ul, ol { padding-left: 25px; margin-top: 10px; margin-bottom: 20px; }
+    li { margin-bottom: 10px; line-height: 1.6; }
+    blockquote { border-left: 5px solid #007bff; padding: 15px 20px; background-color: #f1f8ff; margin: 20px 0; font-style: italic; color: #444; }
+    blockquote strong { font-style: normal; color: #0056b3; }
+
+    /* Table Styles */
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; table-layout: fixed; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: center; font-size: 14px; }
+    th { background-color: #f8f9fa; font-weight: 700; color: #007bff; }
+    td.highlight { font-weight: 600; background-color: #fff3e0; }
+
+    /* Form Styles */
+    .contact-form { background-color: #fcfcfc; padding: 25px; border-radius: 8px; border: 1px solid #e0e0e0; margin-top: 20px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
+    .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="tel"], .form-group textarea, .form-group select {
+      width: calc(100% - 24px);
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .form-group input[type="submit"] { background-color: #28a745; color: white; border: none; padding: 15px 20px; border-radius: 6px; cursor: pointer; font-size: 18px; transition: background 0.3s ease; }
+    .form-group input[type="submit"]:hover { background-color: #218838; }
+
+    /* Footer Styles */
+    footer { background-color: #333; color: #fff; text-align: center; padding: 30px; font-size: 14px; margin-top: 20px; border-radius: 0 0 12px 12px; }
+    footer a { color: #fff; text-decoration: none; border-bottom: 1px solid #fff; }
+    footer a:hover { color: #eee; border-bottom: none; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 { font-size: 28px; }
+      h2 { font-size: 24px; }
+      h3 { font-size: 20px; }
+      .cta-btn { font-size: 16px; padding: 14px 28px; }
+    }
+
+    /* Additional content styles for readability */
+    p { margin-bottom: 15px; }
+    .note { font-size: 14px; color: #666; background-color: #f9f9f9; padding: 10px; border-left: 3px solid #ccc; }
+    .highlight-text { color: #d9534f; font-weight: bold; }
+    .review-item { padding: 15px; border-bottom: 1px dashed #e0e0e0; }
+  </style>
+
+  <!-- Schema Markup (JSON-LD) for SEO optimization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "InternetInstallationService",
+    "provider": {
+      "@type": "Organization",
+      "name": "KT 와이파이 설치 전문 센터",
+      "url": "https://example.com",
+      "logo": "https://example.com/logo.png"
+    },
+    "name": "KT 와이파이 설치 및 인터넷 가입 서비스",
+    "description": "KT 기가 인터넷, Mesh WiFi 설치 및 신규 가입 혜택 안내. 2026년 최신 가격 및 사은품 정보를 제공하며, 전국 어디든 설치 가능한 전문업체입니다.",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": ["서울특별시", "부산광역시", "인천광역시", "대구광역시", "대전광역시", "광주광역시", "울산광역시", "세종특별자치시", "경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주특별자치도"]
+    },
+    "serviceOutput": "빠르고 안정적인 인터넷 연결",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "KT 인터넷 상품 목록",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "KT 기가 인터넷 슬림" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "KT 기가 인터넷" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "KT Mesh WiFi" } }
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>KT 와이파이 설치 | 기가 인터넷 & Mesh WiFi 신규 가입 전문 업체</h1>
+    <p>2026년 최신 가격 및 견적 정보! KT 본사 공식 상품으로 빠르고 안정적인 인터넷 환경을 구축하세요.</p>
+    <a href="#estimate" class="cta-btn">📞 실시간 무료 견적 상담 신청 (2026년 사은품 혜택)</a>
+  </header>
+
+  <section id="why-kt">
+    <div class="content-container">
+      <h2>왜 KT 와이파이 설치를 추천하나요?</h2>
+      <p>수많은 인터넷 서비스 제공 업체(ISP) 중에서 KT를 선택해야 하는 명확한 이유가 있습니다. KT는 국내 최대 규모의 광케이블 인프라를 보유하고 있어 다른 업체 대비 압도적인 안정성과 속도를 자랑합니다. 특히 2026년에는 AI 기술을 활용한 네트워크 최적화로, 기존의 잦은 끊김 현상이나 속도 저하 문제를 획기적으로 개선하고 있습니다.</p>
+
+      <h3>KT 기가 인터넷의 장점: 압도적인 속도와 안정성</h3>
+      <p>일반적으로 가정에서 사용하는 인터넷은 100Mbps 급 광랜이 많습니다. 하지만 4K/8K 고화질 스트리밍, 대용량 파일 다운로드, 온라인 게임 등 고부하 작업을 할 때는 속도 부족을 경험할 수 있습니다. KT 기가 인터넷은 최소 500Mbps에서 최대 1Gbps 이상의 속도를 제공하여, 이런 모든 작업을 쾌적하게 처리할 수 있게 해줍니다. 잦은 끊김 없이 안정적으로 와이파이를 사용하고 싶은 분들에게는 KT 기가 인터넷이 최적의 선택입니다.</p>
+
+      <h3>KT Mesh WiFi: 넓은 공간 완벽 커버리지</h3>
+      <p>집이 넓거나 복층 구조인 경우, 혹은 방이 여러 개일 때 와이파이 음영 지역이 생기기 쉽습니다. KT Mesh WiFi는 이러한 문제를 해결하기 위한 혁신적인 솔루션입니다. 여러 대의 공유기를 그물망(Mesh)처럼 연결하여 집안 어디든 와이파이 신호가 끊기지 않도록 확장해줍니다. 특히 2026년 신규 가입 혜택으로 Mesh WiFi 공유기 설치 지원이 강화되어, 기존보다 훨씬 저렴한 가격으로 넓은 커버리지를 확보할 수 있습니다.</p>
+
+      <div class="image-container">
+        <!-- Image from Pexels related to fast internet or technology -->
+        <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="KT 와이파이 설치 및 인터넷 속도 측정">
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing-comparison">
+    <div class="content-container">
+      <h2>KT 와이파이 설치 가격 및 견적 비교 분석 (2026년 최신)</h2>
+      <p>KT 와이파이 설치 비용은 상품 종류, 약정 기간, 결합 할인 여부에 따라 달라집니다. 저희 전문 업체를 통해 가입하시면 본사 혜택 외에도 추가적인 사은품 및 현금지원 혜택을 받을 수 있습니다. 단순 가격 비교를 넘어, 자신에게 맞는 최적의 요금제를 선택하는 것이 중요합니다.</p>
+
+      <h3>상품별 월정액 요금 및 사은품 혜택 비교표</h3>
+      <p>아래 표는 2026년 신규 가입 시 일반적인 3년 약정 기준의 예상 금액입니다. 통신사별, 상품별 차이점을 명확하게 비교해 보세요.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>KT 기가 인터넷 슬림 (500Mbps)</th>
+            <th>KT 기가 인터넷 (1Gbps)</th>
+            <th>경쟁사 A (500Mbps)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>월 예상 요금 (VAT 포함)</td>
+            <td>약 33,000원</td>
+            <td>약 38,500원</td>
+            <td>약 34,100원</td>
+          </tr>
+          <tr>
+            <td>사은품 / 현금지원 (최대)</td>
+            <td class="highlight">최대 40만원 지원</td>
+            <td class="highlight">최대 45만원 지원</td>
+            <td>최대 35만원 지원</td>
+          </tr>
+          <tr>
+            <td>설치비용</td>
+            <td>11,000원 (최초 1회)</td>
+            <td>11,000원 (최초 1회)</td>
+            <td>11,000원 (최초 1회)</td>
+          </tr>
+          <tr>
+            <td>추천 대상</td>
+            <td>일반 가정, 1인 가구, 고사양 게임 유저</td>
+            <td>다자녀 가정, 고화질 스트리밍/업로드 유저</td>
+            <td>가격만 중시하는 고객</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">※ 2026년 4월 기준 정보이며, 결합 상품 및 프로모션에 따라 금액 및 사은품은 달라질 수 있습니다. 정확한 견적은 상담을 통해 확인하세요.</p>
+
+      <h3>가격 절감을 위한 핵심 팁: 결합 할인 활용</h3>
+      <p>KT 와이파이 설치 비용을 저렴하게 만드는 가장 확실한 방법은 휴대폰, TV 등 다른 KT 상품과의 결합입니다. KT는 가족 구성원 수에 따라 휴대폰 요금 할인 폭이 커지는 '총액 결합 할인' 제도가 있습니다. KT 휴대폰을 사용하는 가족 구성원이 2명 이상이라면, 인터넷 요금에서 최대 20%까지 추가 할인을 받을 수 있습니다. <a href="https://namu.wiki/w/KT%EC%9D%B8%ED%84%B0%EB%84%B7" target="_blank">나무위키 KT 인터넷 정보 참고</a></p>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="content-container">
+      <h2>KT 와이파이 설치 진행 절차: 가입부터 개통까지</h2>
+      <ol>
+        <li><strong>무료 견적 상담 신청 (STEP 1):</strong> 전화, 카카오톡, 온라인 폼을 통해 고객님의 거주 환경(주택, 아파트), 사용 목적(인터넷, TV), 원하는 속도 등을 상세하게 상담합니다.</li>
+        <li><strong>맞춤 상품 추천 및 견적 확정 (STEP 2):</strong> 상담 내용을 바탕으로 고객님에게 가장 적합하고 저렴한 상품(기가 슬림, 기가, Mesh WiFi 등)을 추천해드립니다. 사은품 및 현금지원 혜택을 포함한 총 견적을 안내해드립니다.</li>
+        <li><strong>가입 신청 및 해피콜 (STEP 3):</strong> 가입 신청서 작성을 완료하면, KT 본사에서 해피콜을 통해 본인 확인 및 최종 가입 확인 절차를 진행합니다.</li>
+        <li><strong>설치 기사 방문 및 개통 (STEP 4):</strong> 고객님과 조율된 일정에 맞춰 KT 설치 기사가 방문하여 와이파이 설치 및 인터넷 개통 작업을 진행합니다. 보통 1~2시간 내로 완료됩니다.</li>
+        <li><strong>사은품 및 현금 지원 지급 (STEP 5):</strong> 개통 완료 후 며칠 이내로 약속된 사은품 및 현금 지원이 지급됩니다.</li>
+      </ol>
+      <div class="image-container">
+        <!-- Image from Pexels related to installation process -->
+        <img src="https://images.pexels.com/photos/3861973/pexels-photo-3861973.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="KT 와이파이 설치 과정">
+      </div>
+    </div>
+  </section>
+
+  <section id="geographic-keywords">
+    <div class="content-container">
+      <h2>전국 어디든 KT 와이파이 설치 가능 지역 (30+ 지역)</h2>
+      <p>저희 업체는 KT 본사 공식 파트너로서 전국 모든 지역에 걸쳐 신규 가입 및 설치 서비스를 제공합니다. <span class="highlight-text">서울, 부산, 대구, 인천, 대전, 광주, 울산, 세종</span> 등 7대 특별/광역시부터 <span class="highlight-text">경기도, 강원도, 충청도, 전라도, 경상도, 제주도</span>까지 커버합니다.</p>
+
+      <h3>KT 인터넷 전국 서비스 가능 지역 상세 목록</h3>
+      <ul>
+        <li><strong>서울:</strong> 강남구, 강동구, 강북구, 강서구, 관악구, 광진구, 구로구, 금천구, 노원구, 도봉구, 동대문구, 동작구, 마포구, 서대문구, 서초구, 성동구, 성북구, 송파구, 양천구, 영등포구, 용산구, 은평구, 종로구, 중구, 중랑구</li>
+        <li><strong>경기:</strong> 수원시 (장안구, 권선구, 팔달구, 영통구), 고양시, 용인시, 성남시, 부천시, 화성시, 안산시, 남양주시, 안양시, 평택시, 시흥시, 파주시, 의정부시, 김포시, 광주시, 하남시, 광명시, 군포시, 오산시, 양주시, 이천시, 안성시, 구리시, 포천시, 의왕시, 여주시, 동두천시, 과천시</li>
+        <li><strong>인천:</strong> 연수구, 미추홀구, 남동구, 부평구, 계양구, 서구, 중구, 동구, 강화군, 옹진군</li>
+        <li><strong>부산:</strong> 해운대구, 동래구, 금정구, 부산진구, 사하구, 남구, 북구, 사상구, 기장군</li>
+        <li><strong>대구:</strong> 수성구, 달서구, 북구, 동구, 서구, 중구, 남구, 달성군</li>
+        <li><strong>광주:</strong> 북구, 광산구, 서구, 남구, 동구</li>
+        <li><strong>대전:</strong> 유성구, 서구, 중구, 동구, 대덕구</li>
+        <li><strong>울산:</strong> 남구, 북구, 동구, 중구, 울주군</li>
+        <li><strong>지방 주요 도시:</strong> 청주시, 천안시, 전주시, 포항시, 창원시, 제주시, 원주시, 세종시 등</li>
+      </ul>
+      <p>KT의 넓은 인프라 덕분에 웬만한 주거 지역에서는 설치에 문제가 없지만, 신축 아파트나 외딴 지역의 경우 설치 가능 여부를 사전에 확인해야 합니다. 저희가 실시간으로 설치 가능 여부를 체크해 드립니다.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="content-container">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <h3>Q1. KT 와이파이 설치 시 신규 가입 혜택은 어떤 것이 있나요?</h3>
+      <p>신규 가입자에게는 통신사 이동 혜택이 주어집니다. 2026년 현재 KT는 경쟁사에 뒤지지 않는 사은품 및 현금지원을 제공합니다. 또한 '신규 가입 시 첫 달 요금 할인', 'Mesh WiFi 공유기 할인' 등의 이벤트도 진행됩니다. 저희 업체는 KT 본사 정책을 기반으로 한 최대 혜택을 제공하며, 견적 상담 시 자세히 안내해드립니다.</p>
+
+      <h3>Q2. KT, SK, LG U+ 중 어떤 통신사를 선택해야 할까요? 장단점을 알려주세요.</h3>
+      <p>인터넷 통신사 선택은 개인의 환경에 따라 장단점이 다릅니다. SK와 LG U+는 KT 대비 상대적으로 저렴한 가격 정책을 펼치지만, KT는 <a href="https://www.msit.go.kr/web/main/main.do" target="_blank">과학기술정보통신부</a> 통신 품질 평가에서 꾸준히 높은 점수를 받는 등 안정성 측면에서 우위를 보입니다. 특히 '내돈내산' 후기를 살펴보면 KT는 핑(Ping) 값이 낮아 온라인 게임 유저들에게 선호됩니다. 결론적으로, 속도와 안정성을 최우선으로 한다면 KT, 휴대폰 결합 할인율을 최우선으로 한다면 SK나 LG U+를 비교해 볼 수 있습니다.</p>
+
+      <h3>Q3. KT 와이파이 설치 시 '저렴한 곳'이나 '싼 곳'을 찾는 팁이 있나요?</h3>
+      <p>'저렴한 곳'을 찾기 위해 단순히 가격만 비교하는 것은 위험할 수 있습니다. 일부 비공식 업체는 과장된 사은품 금액을 제시하고 약속을 이행하지 않는 경우가 있습니다. 가장 좋은 방법은 KT 본사 공식 파트너사를 통해 정확한 견적을 받고, 사은품 지급 조건 및 시기를 명확히 확인하는 것입니다. 저희는 KT 공식 지정 전문 업체로 믿고 가입할 수 있습니다.</p>
+
+      <h3>Q4. 인터넷 설치 후 와이파이가 자주 끊길 때 해결 방법은 무엇인가요?</h3>
+      <p>와이파이 끊김 현상은 여러 가지 이유로 발생할 수 있습니다. 첫째, 공유기 위치를 집 중앙으로 옮겨 신호가 골고루 퍼지게 하세요. 둘째, 'KT Mesh WiFi'를 설치하여 음영 지역을 없애는 것이 가장 확실한 방법입니다. 셋째, 공유기 펌웨어 업데이트 또는 재부팅을 주기적으로 시도해 보세요. 마지막으로, 공유기 채널 간섭 문제일 수 있으니 <a href="https://www.kt.com/corp/main/main.do" target="_blank">KT 고객센터</a>에 문의하여 채널 변경을 요청할 수 있습니다.</p>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="content-container">
+      <h2>고객 만족 후기 (실제 KT 설치 경험담)</h2>
+      <p>저희 업체에서 KT 와이파이 설치를 진행하신 고객님들의 실제 '내돈내산' 후기입니다.</p>
+      <div class="review-item">
+        <blockquote>“타사 인터넷을 사용하다가 잦은 끊김 때문에 스트레스가 심했는데, KT 기가 인터넷으로 바꾸니 신세계입니다. 특히 기가 인터넷 슬림은 가격 부담도 적고 속도는 충분해서 만족합니다. 상담부터 설치까지 친절하게 진행해 주셔서 감사합니다.” – 김OO 고객님 (경기도 성남시)</blockquote>
+      </div>
+      <div class="review-item">
+        <blockquote>“복층 오피스텔이라 2층 와이파이 신호가 약해서 고민이었는데, KT Mesh WiFi 설치를 추천받았습니다. 이제 1층, 2층 어디서든 빵빵하게 터집니다. 꼼꼼한 설치와 친절한 설명에 감동했습니다. <a href="https://www.fss.or.kr/main/index.do" target="_blank">금융감독원</a>의 소비자보호원칙에 따라 정확한 정보만 제공하는 점이 신뢰가 갔습니다.” – 박OO 고객님 (서울 강남구)</blockquote>
+      </div>
+      <div class="review-item">
+        <blockquote>“인터넷, TV, 휴대폰 결합 할인 혜택을 최대로 받을 수 있도록 자세하게 안내해 주셨습니다. 경쟁사 대비 KT의 가격이 비쌀까 걱정했는데, 결합 할인과 사은품까지 받으니 오히려 이득이었습니다. 설치도 빨랐고, 현금 지원도 약속대로 정확히 받았습니다.” – 최OO 고객님 (부산 해운대구)</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai-keywords">
+    <div class="content-container">
+      <h2>AI 시대의 네트워크 선택: KT의 역할</h2>
+      <p>2026년 현재, 인공지능(AI) 기술은 우리의 일상과 산업 전반에 깊숙이 침투하고 있습니다. 고성능 AI 모델인 Gemini나 ChatGPT를 활용한 작업, 혹은 AIoT(AI of Things) 기기 사용이 보편화되면서, 안정적이고 빠른 인터넷 환경은 더 이상 선택이 아닌 필수 조건이 되었습니다. KT는 이러한 AI 시대에 맞춰 네트워크를 지능적으로 관리하는 기술을 도입하고 있습니다. 예를 들어, AI 기반 트래픽 분산 시스템은 특정 시간대에 발생하는 병목 현상을 미리 예측하고 회피하여 사용자에게 끊김 없는 환경을 제공합니다.</p>
+      <p>특히 고화질 스트리밍 서비스나 클라우드 기반 AI 솔루션을 원활하게 사용하려면, KT 기가 인터넷의 대용량 트래픽 처리 능력이 중요합니다. 네이버, 구글, 유튜브 등 대형 플랫폼 서비스를 이용할 때, KT는 AI 기반 네트워크 최적화를 통해 사용자 경험을 극대화하고 있습니다. 이는 단순한 속도 경쟁을 넘어, AI 시대에 필수적인 '안정성'을 제공하겠다는 KT의 비전입니다.</p>
+    </div>
+  </section>
+
+  <section id="estimate">
+    <div class="content-container">
+      <h2>무료 견적 상담 및 가입 신청</h2>
+      <p>지금 바로 KT 와이파이 설치 견적을 받아보세요. 2026년 최신 신규 가입 혜택과 사은품을 안내해드립니다.</p>
+      <div class="contact-form">
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="name">성함</label>
+            <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
+          </div>
+          <div class="form-group">
+            <label for="contact">연락처</label>
+            <input type="tel" id="contact" name="contact" placeholder="ex) 010-1234-5678" required>
+          </div>
+          <div class="form-group">
+            <label for="address">설치 주소 (시/구)</label>
+            <input type="text" id="address" name="address" placeholder="ex) 서울특별시 강남구" required>
+          </div>
+          <div class="form-group">
+            <label for="service">신청 상품 선택</label>
+            <select id="service" name="service" required>
+              <option value="">상품을 선택해주세요</option>
+              <option value="기가 인터넷 슬림 (500Mbps)">기가 인터넷 슬림 (500Mbps)</option>
+              <option value="기가 인터넷 (1Gbps)">기가 인터넷 (1Gbps)</option>
+              <option value="Mesh WiFi 추가">Mesh WiFi 추가</option>
+              <option value="인터넷 + TV 결합">인터넷 + TV 결합</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="requirements">요청 사항 (ex. 현금지원/사은품 문의)</label>
+            <textarea id="requirements" name="requirements" rows="4" placeholder="자세한 문의 사항을 남겨주시면 맞춤 견적을 제공해드립니다."></textarea>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="무료 상담 신청">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
